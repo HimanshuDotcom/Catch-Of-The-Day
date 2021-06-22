@@ -20,8 +20,10 @@ class AddFish extends React.Component {
         e.currentTarget.reset();
     }
 
+
     render() {
         return (
+            <>
             <form className = "fish-edit" onSubmit = {this.createFish}>
                 <input type = "text" name= "name" placeholder = "name" ref = {this.nameRef} />
                 <input type = "text" name= "price" placeholder = "Price" ref = {this.priceRef} />
@@ -33,6 +35,9 @@ class AddFish extends React.Component {
                 <input type = "text" name= "image" placeholder = "Image" ref = {this.imageRef} />
                 <button type="submit">+ Add Fish</button>
             </form>
+            <button onClick = {this.props.loadSampleFishes}>Load Sample Fishes</button>
+
+            </>
         )
     }
 }
