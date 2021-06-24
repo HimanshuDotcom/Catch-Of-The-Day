@@ -14,11 +14,19 @@ class App extends React.Component {
     };
 
     componentDidMount() {
+        const localStorageRef = localStorage.getItem(this.props.match.params.storeId);
+        if(localStorageRef)
+            this.setState({order: JSON.parse(localStorageRef)});
         this.ref = base.syncState(`${this.props.match.params.storeId}/fishes`, {
             context: this,
             state: "fishes"
         });
     }
+
+    componentDidUpdate() {
+        localStorage.setItem(this.props.match.params.storeId, JSON.stringify(this.state.order))
+    }
+
     componentWillUnmount() {
         base.removeBinding(this.ref);
     }
@@ -29,6 +37,22 @@ class App extends React.Component {
         this.setState({
             fishes: fishes
         })
+    }
+
+    updateFish = (key, updatedFish) => {
+        // console.log(updatedFish)
+        const fishes = {...this.state.fishes};
+        fishes[key] = updatedFish;             // why fishes.key is not working
+        this.setState({
+            fishes: fishes
+        })
+    }
+
+    removeFish = (key) => {
+        const fishes = {...this.state.fishes};
+        console.log("ehyyyyyy")
+        fishes[key] = null;
+        this.setState({fishes});
     }
 
     loadSampleFishes = () => {
@@ -59,8 +83,17 @@ class App extends React.Component {
                         }
                     </ul>
                 </div>
-                <Order fishes = {this.state.fishes} order = {this.state.order} />
-                <Inventory addFish = {this.addFish} loadSampleFishes = {this.loadSampleFishes}/>
+                <Order 
+                    fishes = {this.state.fishes} 
+                    order = {this.state.order} 
+                />
+                <Inventory 
+                    addFish = {this.addFish} 
+                    loadSampleFishes = {this.loadSampleFishes} 
+                    fishes = {this.state.fishes}
+                    updateFish = {this.updateFish}
+                    removeFish = {this.removeFish}
+                />
             </div>
         )
     }
