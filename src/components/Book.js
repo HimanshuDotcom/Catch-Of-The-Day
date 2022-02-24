@@ -1,7 +1,7 @@
 import React from 'react';
 import {formatPrice} from '../helpers';
 
-class Fish extends React.Component {
+class Book extends React.Component {
 
     // addOrder = () => {
     //     this.props.addToOrder();
@@ -28,4 +28,4 @@ class Fish extends React.Component {
     }
 }
 
-export default Fish;
+export default Book;

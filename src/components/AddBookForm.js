@@ -1,22 +1,22 @@
 import React from 'react';
 
-class AddFish extends React.Component {
+class AddBook extends React.Component {
     nameRef = React.createRef();
     priceRef = React.createRef();
     statusRef = React.createRef();
     descRef = React.createRef();
     imageRef = React.createRef();
     
-    createFish = e => {
+    createBook = e => {
         e.preventDefault();
-        const fish = {
+        const book = {
             name: this.nameRef.current.value,    
             price: parseFloat(this.priceRef.current.value),    
             status: this.statusRef.current.value,    
             desc: this.descRef.current.value,    
             image: this.imageRef.current.value,    
         }
-        this.props.addFish(fish);
+        this.props.addBook(book);
         e.currentTarget.reset();
     }
 
@@ -24,7 +24,7 @@ class AddFish extends React.Component {
     render() {
         return (
             <>
-            <form className = "fish-edit" onSubmit = {this.createFish}>
+            <form className = "fish-edit" onSubmit = {this.createBook}>
                 <input type = "text" name= "name" placeholder = "name" ref = {this.nameRef} />
                 <input type = "text" name= "price" placeholder = "Price" ref = {this.priceRef} />
                 <select name="status" ref = {this.statusRef}>
@@ -33,13 +33,12 @@ class AddFish extends React.Component {
                 </select>
                 <textarea  name= "desc" placeholder = "Desc" ref = {this.descRef} />
                 <input type = "text" name= "image" placeholder = "Image" ref = {this.imageRef} />
-                <button type="submit">+ Add Fish</button>
+                <button type="submit">+ Add Item</button>
             </form>
-            <button onClick = {this.props.loadSampleFishes}>Load Sample Fishes</button>
 
             </>
         )
     }
 }
 
-export default AddFish;
+export default AddBook;

@@ -2,62 +2,64 @@ import React from 'react';
 import Header from './Header.js';
 import Order from './Order.js';
 import Inventory from './Inventory';
-import fishes from '../sample-fishes';
-import Fish from './Fish';
+import books from '../sample-books';
+import Book from './Book';
 import base from '../base';
 
 class App extends React.Component {
 
     state = {
-        fishes: {},
+        books: {},
         order: {}
     };
 
     componentDidMount() {
-        const localStorageRef = localStorage.getItem(this.props.match.params.storeId);
-        if(localStorageRef)
-            this.setState({order: JSON.parse(localStorageRef)});
-        this.ref = base.syncState(`${this.props.match.params.storeId}/fishes`, {
-            context: this,
-            state: "fishes"
-        });
-    }
-
-    componentDidUpdate() {
-        localStorage.setItem(this.props.match.params.storeId, JSON.stringify(this.state.order))
-    }
-
-    componentWillUnmount() {
-        base.removeBinding(this.ref);
-    }
-
-    addFish = fish => {
-        const fishes = {...this.state.fishes};
-        fishes[`fish${Date.now()}`] = fish;
+        // const localStorageRef = localStorage.getItem(this.props.match.params.storeId);
+        // if(localStorageRef)
+        //     this.setState({order: JSON.parse(localStorageRef)});
+        // this.ref = base.syncState(`${this.props.match.params.storeId}/fishes`, {
+        //     context: this,
+        //     state: "fishes"
+        // });
         this.setState({
-            fishes: fishes
+            books: books
         })
     }
 
-    updateFish = (key, updatedFish) => {
+    // componentDidUpdate() {
+    //     // localStorage.setItem(this.props.match.params.storeId, JSON.stringify(this.state.order))
+    // }
+
+    // componentWillUnmount() {
+    //     // base.removeBinding(this.ref);
+    // }
+
+    addBook = book => {
+        const books = {...this.state.books};
+        books[`book${Date.now()}`] = book;
+        this.setState({
+            books: books
+        })
+    }
+
+    updateBook = (key, updatedFish) => {
         // console.log(updatedFish)
-        const fishes = {...this.state.fishes};
-        fishes[key] = updatedFish;             // why fishes.key is not working
+        const books = {...this.state.books};
+        books[key] = updatedFish;             // why fishes.key is not working
         this.setState({
-            fishes: fishes
+            books: books
         })
     }
 
-    removeFish = (key) => {
-        const fishes = {...this.state.fishes};
-        console.log("ehyyyyyy")
-        fishes[key] = null;
-        this.setState({fishes});
+    removeBook = (key) => {
+        const books = {...this.state.books};
+        delete books[key];
+        this.setState({books});
     }
 
-    loadSampleFishes = () => {
+    loadSampleBooks = () => {
         this.setState({
-            fishes: fishes
+            books: books
         })
     }
 
@@ -85,26 +87,26 @@ class App extends React.Component {
         return (
             <div className="catch-of-the-day">
                 <div className="menu">
-                    <Header tagline = "Fresh Seafood Market"/>
+                    <Header tagline = "Fresh NEW BOOKS"/>
                     <ul className="fishes">
                         {
-                            Object.keys(this.state.fishes).map(
-                                key => <Fish key = {key} index = {key} details = {this.state.fishes[key]} addToOrder = {this.addToOrder} />
+                            Object.keys(this.state.books).map(
+                                key => <Book key = {key} index = {key} details = {this.state.books[key]} addToOrder = {this.addToOrder} />
                             )
                         }
                     </ul>
                 </div>
                 <Order 
-                    fishes = {this.state.fishes} 
+                    books = {this.state.books} 
                     order = {this.state.order} 
                     removeOrder = {this.removeOrder}
                 />
                 <Inventory 
-                    addFish = {this.addFish} 
-                    loadSampleFishes = {this.loadSampleFishes} 
-                    fishes = {this.state.fishes}
-                    updateFish = {this.updateFish}
-                    removeFish = {this.removeFish}
+                    addBook = {this.addBook} 
+                    loadSampleBooks = {this.loadSampleBooks} 
+                    books = {this.state.books}
+                    updateBook = {this.updateBook}
+                    removeBook = {this.removeBook}
                 />
             </div>
         )

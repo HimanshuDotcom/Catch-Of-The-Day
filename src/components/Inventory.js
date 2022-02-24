@@ -1,18 +1,18 @@
 import React from 'react';
-import AddFish  from './AddFishForm';
-import EditFish from './EditFishForm';
+import AddBook  from './AddBookForm';
+import EditBook from './EditBookForm';
 
 
 class Inventory extends React.Component {
 
-    renderEditFish = (key) => {
-        return <EditFish 
+    renderEditBook = (key) => {
+        return <EditBook
                     key = {key} 
                     index = {key}
-                    fish = {this.props.fishes[key]}
-                    fishes = {this.props.fishes} 
-                    updateFish = {this.props.updateFish}
-                    removeFish = {this.props.removeFish}
+                    book = {this.props.books[key]}
+                    books = {this.props.books} 
+                    updateBook = {this.props.updateBook}
+                    removeBook = {this.props.removeBook}
                 />
     }
 
@@ -21,9 +21,9 @@ class Inventory extends React.Component {
             <div className="inventory">
                 <h2>Inventory</h2>
                 {
-                    Object.keys(this.props.fishes).map(this.renderEditFish)
+                    Object.keys(this.props.books).map(this.renderEditBook)
                 }
-                <AddFish addFish = {this.props.addFish} loadSampleFishes = {this.props.loadSampleFishes}/>
+                <AddBook addBook = {this.props.addBook} loadSampleBooks = {this.props.loadSampleBooks}/>
             </div>
         );
     }
